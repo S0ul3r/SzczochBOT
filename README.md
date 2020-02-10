@@ -1,0 +1,2 @@
+# SzczochBOT
+DIscord bot 
