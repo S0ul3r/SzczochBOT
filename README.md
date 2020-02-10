@@ -1,2 +1,3 @@
 # SzczochBOT
 DIscord bot 
+test
