@@ -1,18 +1,18 @@
 #Necessary imports
 import discord
+import configparser
 import os, time, datetime, random, asyncio, aiohttp, json, discord, time
 from discord.ext import commands
 
 #Bot prefix
 client = commands.Bot(command_prefix = "!")
 
-#==========================================================================#
-#       Commands explained here so you can make your own bot
-#       @client.command()
-#       async def NAME_OF_YOUR_COMMAND_GOES_HERE(ctx):
-#       	await ctx.send('THIS IS WHAT THE BOT WILL TYPE IN THE DISCORD')
-#       	print("WHAT YOU PUT HERE WILL BE PUT IN THE TERMINAL")
+# Read our config file
+client.cfgParser = configparser.ConfigParser()
+client.cfgParser.read("auth.ini")
 
+# Store the data from config file
+clientToken = client.cfgParser.get("discord", "TOKEN")
 
 #Check if the bot is ready
 @client.event
@@ -57,9 +57,10 @@ async def hello(ctx):
 async def logout(ctx):
 	await client.logout()
 
-#Help command to display avaiable commands
+#Help command to display avaiable commands and remove previous help command
+client.remove_command("help")
 @client.command()
-async def helpme(ctx):
+async def help(ctx):
     await ctx.send('\n\t\nBot commands:\n```!spotify - generates a spotify account\
     \n!netflix - generates a netflix account\
     \n!hulu - generates a hulu account\
@@ -91,4 +92,4 @@ async def spotify(ctx):
         await ctx.send(f"{User}:{PassFixed}")
 
 
-client.run('Njc2NDUzNjMwMDM0ODM3NTQ0.XkgGPg.EFXHdsLClNO_uBFsocziQtBzZ54')
+client.run(clientToken)
