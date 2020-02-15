@@ -33,10 +33,10 @@ async def on_memver_remove(member):
 #======          COMMANDS            ======#     
 #==========================================#
 
-#When user types ping, bot sends pong back.
+#When user types ping, bot sends it's latency.
 @client.command()
 async def ping(ctx):
-	await ctx.send('Pong')
+	await ctx.send(f'{round(client.latency * 1000)} ms')
 	print("command worked cmd=pong")
 
 #Sends discord invite
@@ -45,11 +45,12 @@ async def discord(ctx):
 	await ctx.send('https://discord.gg/mNJ3QV')
 	print("command worked cmd=discord")
 
-#When user types hi, bot replys with hi.
-@client.command()
+#When user types hello, bot replys with hi.
+@client.command(aliases=['Hi', 'Hello'])
 async def hello(ctx):
 	await ctx.send("Hello")
 	print("command worked cmd=Hello")
+
 
 #Logout command for logging the bot out.
 @client.command()
@@ -90,4 +91,4 @@ async def spotify(ctx):
         await ctx.send(f"{User}:{PassFixed}")
 
 
-client.run('Njc2NDUzNjMwMDM0ODM3NTQ0.XkF7Vw.HQVasoU3EQSG3vatBgYAdA5ilMw')
+client.run('Njc2NDUzNjMwMDM0ODM3NTQ0.XkgGPg.EFXHdsLClNO_uBFsocziQtBzZ54')
