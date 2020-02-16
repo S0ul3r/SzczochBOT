@@ -71,4 +71,4 @@ async def help(ctx):
     \n!hulu - generates a hulu account\
     \n!stock - shows the stock for each account type```')
 
-client.run('Njc2NDUzNjMwMDM0ODM3NTQ0.Xkkzmg.zASBgMTVq-lgXUZQhIhuz-vpxHc')
+client.run(discordKey)
