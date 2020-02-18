@@ -7,14 +7,14 @@ import os
 #Bot prefix
 client = commands.Bot(command_prefix = "!")
 
-# Read our config file
-client.cfgParser = configparser.ConfigParser()
-client.cfgParser.read("auth.ini")
+# Read our config file and stora data from it
+config = configparser.ConfigParser()
+config.read("auth.ini")
+discordKey = config.get('discord', 'TOKEN')
 
-# Store the data from config file
-discordKey = client.cfgParser.get("discord", "TOKEN")
-
-#Check if the bot is ready
+#==========================================#
+#======            LOADUP            ======#     
+#==========================================#
 @client.event
 async def on_ready():
     print('==== Bot is starting ====')
@@ -23,11 +23,7 @@ async def on_ready():
     for filename in os.listdir('./cogs'):
         if filename.endswith('.py'):
             client.load_extension(f'cogs.{filename[:-3]}')
-            print(f'cogs.{filename[:-3]} loaded.')
-
-    print(f'Connected to {len(client.servers)} servers:')
-    for server in client.servers:
-        print(f'- {server.name}')
+            print(f'{filename[:-3]} loaded.')
     
     print('==== Bot has finished initialization ====')
 
@@ -37,12 +33,12 @@ async def on_ready():
 
 #Load cogs
 @client.command()
-async def load(ctx,extension):
+async def load(ctx, extension):
 	client.load_extension(f'cogs.{extension}')
 
-#Unload cogs
+#Unload cog
 @client.command()
-async def unload(ctx,extension):
+async def unload(ctx, extension):
 	client.unload_extension(f'cogs.{extension}')
 
 #When user types ping, bot sends it's latency.
@@ -50,12 +46,6 @@ async def unload(ctx,extension):
 async def ping(ctx):
 	await ctx.send(f'{round(client.latency * 1000)} ms')
 	print("command worked cmd=pong")
-
-#When user types hello, bot replys with hi.
-@client.command(aliases=['Hi', 'Hello'])
-async def hello(ctx):
-	await ctx.send("Hello")
-	print("command worked cmd=Hello")
 
 #Logout command for logging the bot out.
 @client.command()
@@ -68,7 +58,6 @@ client.remove_command("help")
 async def help(ctx):
     await ctx.send('\n\t\nBot commands:\n```!spotify - generates a spotify account\
     \n!netflix - generates a netflix account\
-    \n!hulu - generates a hulu account\
     \n!stock - shows the stock for each account type```')
 
 client.run(discordKey)

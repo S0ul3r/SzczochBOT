@@ -1,15 +1,12 @@
+import discord, os, time, datetime, random
 from discord.ext import commands
-import discord
-import os, time, datetime, random, asyncio, aiohttp, json, discord, time
 
 class Accounts(commands.Cog):
 
     def __init__(self, client):
         self.client = client
 
-    @commands.Cog.listener()
-
-    #Print spotify account
+    #Post spotify account
     @commands.command(pass_context=True)
     @commands.cooldown(1, 60, commands.BucketType.user)
     async def spotify(self, ctx):
@@ -32,7 +29,7 @@ class Accounts(commands.Cog):
             print(f"  > User {ctx.author} generated a Spotify Account at time {datetime.datetime.now()}")
             await ctx.send(f"```Username:{User}\nPassword:{PassFixed}```")
 
-    #Print netflix account
+    #Post netflix account
     @commands.command(pass_context=True)
     @commands.cooldown(1, 60, commands.BucketType.user)
     async def netflix(self, ctx):
@@ -54,7 +51,6 @@ class Accounts(commands.Cog):
                 break
             print(f"  > User {ctx.author} generated a Netflix Account at time {datetime.datetime.now()}")
             await ctx.send(f"```Username:{User}\nPassword:{PassFixed}```")
-
 
 def setup(client):
     client.add_cog(Accounts(client))
